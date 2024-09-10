@@ -11,12 +11,19 @@ try {
     echo "connection fucking failed bitch:" . $e->getMessage();
 }
 
-if (isset($_POST["addtask"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $task = $_POST["task"];
-    $stmt = $conn->prepare("INSERT INTO tasks (task) VALUES (:task)");
+
+    $query = "INSERT INTO tasks (task) VALUES (:task);";
+    $stmt = $pdo->prepare($query);
     $stmt->bindParam(":task", $task);
+
     $stmt->execute();
-    header("location: index.php");
+
+    $pdo = null;
+    $stmt = null;
+
+    header("Location: index.php");
 }
 
 ?>
