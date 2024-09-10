@@ -54,6 +54,11 @@ ul li{
     margin-bottom: 14px;
 }
 
+ul li.completed{
+    text-decoration: line-through;
+    color: #777777;
+}
+
 i{
     padding-left: 18px;
 }
@@ -64,6 +69,7 @@ i{
 .fa-trash:hover{
     color: #ff0000;
 }
+
 .fa-circle-check{
     color: #000080;
 }
