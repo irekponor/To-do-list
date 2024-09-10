@@ -27,6 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+if (isset($_GET["delete"])) {
+    $id = $_GET["delete"];
+    $stmt = $pdo->prepare("DELETE FROM tasks WHERE id = :id");
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+}
+
 $stmt = $pdo->query("SELECT * FROM tasks ORDER BY id DESC");
 ?>
 
@@ -49,14 +56,17 @@ $stmt = $pdo->query("SELECT * FROM tasks ORDER BY id DESC");
             <button type="submit" name="addtask">Add Task</button>
         </form>
         <ul>
-            <?php foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) ?>
-            <li>
-                <strong><?php echo $row["tasks"]; ?></strong>
-                <div class="actions">
-                    <a href="index.php?complete=<?php echo $row['id']; ?>"><i class="fa-solid fa-circle-check"></i></a>
-                    <a href="index.php?delete=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash"></i></a>
-                </div>
-            </li>
+            <?php
+            if ($stmt->rowCount() > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<li><strong>" . $row["tasks"] . "</strong></li>";
+                    echo '<div class="actions">';
+                    echo '<a href="index.php?complete=' . $row['id'] . '"><i class="fa-solid fa-circle-check"></i></a>';
+                    echo '<a href="index.php?delete=' . $row['id'] . '"><i class="fa-solid fa-trash"></i></a>';
+                    echo '</div></li>';
+                }
+            }
+            ?>
         </ul>
     </div>
 </body>
