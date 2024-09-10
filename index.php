@@ -11,19 +11,21 @@ try {
     echo "connection fucking failed bitch:" . $e->getMessage();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $task = $_POST["task"];
+    $tasks = $_POST["tasks"];
 
     try {
-        $query = "INSERT INTO users (task) VALUES (:task);";
+        $query = "INSERT INTO tasks (tasks) VALUES (:tasks);";
 
         $stmt = $pdo->prepare($query);
 
-        $stmt->bindParam(":task", $task);
+        $stmt->bindParam(":tasks", $tasks);
 
         $stmt->execute();
 
         $pdo = null;
         $stmt = null;
+
+        header("Location: index.php");
 
         die();
     } catch (PDOException $e) {
@@ -46,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <h1>To-do List</h1>
         <form action="index.php" method="post">
-            <input type="text" name="task" placeholder="Enter new task.." id="">
+            <input type="text" name="tasks" placeholder="Enter new task.." id="">
             <button type="submit" name="addtask">Add Task</button>
         </form>
     </div>
