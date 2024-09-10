@@ -15,23 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         $query = "INSERT INTO tasks (tasks) VALUES (:tasks);";
-
         $stmt = $pdo->prepare($query);
-
         $stmt->bindParam(":tasks", $tasks);
-
         $stmt->execute();
-
         $pdo = null;
         $stmt = null;
-
         header("Location: index.php");
-
         die();
     } catch (PDOException $e) {
         die("Query Failed:" . $e->getMessage());
     }
 }
+
+$result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="tasks" placeholder="Enter new task.." id="">
             <button type="submit" name="addtask">Add Task</button>
         </form>
+        <ul>
+            <?php while ($row = $result->fetch_assoc()); ?>
+            <li>
+                <?php echo $row["tasks"]; ?>
+            </li>
+        </ul>
     </div>
 </body>
 
