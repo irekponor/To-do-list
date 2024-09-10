@@ -39,6 +39,37 @@ button:hover{
     background: #000050;
 }
 
+ul{
+    list-style-type: none;
+    padding: 20px 0px;
+    margin: 0;
+}
+
+ul li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f5dc;
+    padding: 10px;
+    margin-bottom: 14px;
+}
+
 i{
     padding-left: 18px;
 }
+
+.fa-trash{
+    color: #000080;
+}
+.fa-trash:hover{
+    color: #ff0000;
+}
+.fa-circle-check{
+    color: #000080;
+}
+.fa-circle-check:hover{
+    color: #008000;
+}
+
+
+
