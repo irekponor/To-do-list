@@ -38,6 +38,7 @@ $stmt = $pdo->query("SELECT * FROM tasks ORDER BY id DESC");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do List</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/de8e2530fe.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -52,8 +53,8 @@ $stmt = $pdo->query("SELECT * FROM tasks ORDER BY id DESC");
             <li>
                 <strong><?php echo $row["tasks"]; ?></strong>
                 <div class="actions">
-                    <a href="index.php?complete=<?php echo $row['id']; ?>">Complete</a>
-                    <a href="index.php?delete=<?php echo $row['id']; ?>">Delete</a>
+                    <a href="index.php?complete=<?php echo $row['id']; ?>"><i class="fa-solid fa-circle-check"></i></a>
+                    <a href="index.php?delete=<?php echo $row['id']; ?>"><i class="fa-solid fa-trash"></i></a>
                 </div>
             </li>
         </ul>
