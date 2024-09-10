@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
+$stmt = $pdo->query("SELECT * FROM tasks ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -48,9 +48,13 @@ $result = $conn->query("SELECT * FROM tasks ORDER BY id DESC");
             <button type="submit" name="addtask">Add Task</button>
         </form>
         <ul>
-            <?php while ($row = $result->fetch_assoc()); ?>
+            <?php foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) ?>
             <li>
-                <?php echo $row["tasks"]; ?>
+                <strong><?php echo $row["tasks"]; ?></strong>
+                <div class="actions">
+                    <a href="index.php?complete=<?php echo $row['id']; ?>">Complete</a>
+                    <a href="index.php?delete=<?php echo $row['id']; ?>">Delete</a>
+                </div>
             </li>
         </ul>
     </div>
