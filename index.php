@@ -10,22 +10,26 @@ try {
 } catch (PDOException $e) {
     echo "connection fucking failed bitch:" . $e->getMessage();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $task = $_POST["task"];
 
-    $query = "INSERT INTO tasks (task) VALUES (:task);";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(":task", $task);
+    try {
+        $query = "INSERT INTO users (task) VALUES (:task);";
 
-    $stmt->execute();
+        $stmt = $pdo->prepare($query);
 
-    $pdo = null;
-    $stmt = null;
+        $stmt->bindParam(":task", $task);
 
-    header("Location: index.php");
+        $stmt->execute();
+
+        $pdo = null;
+        $stmt = null;
+
+        die();
+    } catch (PDOException $e) {
+        die("Query Failed:" . $e->getMessage());
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
