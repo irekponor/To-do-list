@@ -1,3 +1,26 @@
+<?php
+
+$dsn = "mysql:host=localhost;dbname=todolist";
+$dbusername = "root";
+$dbpassword = "";
+
+try {
+    $pdo = new PDO($dsn, $dbusername, $dbpassword);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "connection fucking failed bitch:" . $e->getMessage();
+}
+
+if (isset($_POST["addtask"])) {
+    $task = $_POST["task"];
+    $stmt = $conn->prepare("INSERT INTO tasks (task) VALUES (:task)");
+    $stmt->bindParam(":task", $task);
+    $stmt->execute();
+    header("location: index.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
