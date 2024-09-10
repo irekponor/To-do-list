@@ -9,4 +9,12 @@ body{
     justify-content: center;
 }
 
-.con
+.container{
+    padding: 20px;
+    background: #000080;
+    border-radius: 4px;
+}
+
+h1{
+    text-align: center;
+}
